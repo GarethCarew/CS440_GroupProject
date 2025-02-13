@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head><title>Todo App</title>
+    <link rel="stylesheet" href="/public/stylesheets/style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="todo-container"><h2>To-Do List</h2>
+    <div class="todo">
+        <form action="/" method="POST" class="todo-header">
+            <input type="text" name="content">
+            <button type="submit">+<span class=""></span></button>
+        </form>
+        <ul class="todo-list">
+            <% data.forEach(function(item) { %>
+                <li>
+                    <%= item._doc._id %>
+                    <form action="/update/<%= item._doc._id %>" method="POST" class="todo-edit">
+                        <input type="text" value="<%= item._doc.name %>" name="edit">
+                        <button type="submit">?<span class=""></span></button>
+                    </form>
+
+                    <form action="/delete/<%= item._doc._id %>" method="POST" class="todo-delete">
+                        <button type="submit">-<span class=""></span></button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</div>
+</body>
