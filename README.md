@@ -3,11 +3,9 @@ This project is a website based to-do list that uses a login system to save indi
 a page that will present their already existing to-do list with some different inclusions.
 
 These inclusions are:
-```
-a text input for adding new items to the list
-a button to allow modifying existing items
-a button for deleting pre-existing items
-```
+- a text input for adding new items to the list
+- a button to allow modifying existing items
+- a button for deleting pre-existing items
 
 Some information to still work on is:
 - [ ] Including a working code for the [style.css](https://github.com/GarethCarew/CS440_GroupProject/blob/main/public/stylesheets/style.css)
