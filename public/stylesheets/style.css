@@ -1,116 +1,30 @@
-html, body 
-{
-    height: 100%;
-    margin: 0; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center; 
-    font-family: sans-serif;
-    margin: 0;
-    background-color: #f6c492; 
-    color: #040316; 
+html, body {
+    background-color: #f6c492 !important;
 }
 
-.todo-container 
-{
-    width: 500px;
-    max-width: 90%;
-    margin: 20px auto;
-    background-color: white; 
-    border: none;
-    padding: 20px;
-    color: #040316; 
-    border: 2px solid #b59f87;
+.card {
+    background-color: #6a67a2 !important;
 }
 
-h2 
-{
+.h2 {
     text-align: center;
-    color: #f6c492; 
+    color: #f6c492 !important;
     margin-bottom: 20px;
-	font-family: 'Lucida Handwriting';
-	font-size: 3em;
+    font-family: "Lucida Handwriting", monospace;
+    font-size: 3em !important;
 }
 
-.todo-header 
-{
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+.new_item_header {
+
+    color: #f6c492;
+    font-family: "Playwrite US Modern", serif;
+    text-align: center;
 }
 
-.todo-header input[type="text"] 
-{
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    background-color: #cdadb1;
-    color: #040316;
-	margin-right: 5px;
+.btn {
+    background-color: #b59f87 !important;
 }
 
-
-.todo-header button 
-{
-    padding: 8px 12px;
-    background-color: #b59f87; 
-    color: #040316;
-    border: none;
-    cursor: pointer;
-	border-radius: 8px;
-	font-family: "Sour Gummy", serif;
-    font-weight: 800; 
-    font-style: normal;
-    font-variation-settings: "wdth" 100;
-}
-
-.todo-list li 
-{
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-	color: #f6c492;
-	font-family: "Playwrite US Modern", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.todo-edit, .todo-delete 
-{
-    display: inline-block;
-    margin-left: 5px;
-}
-
-.todo-edit button, 
-.todo-delete button 
-{
-	padding: 5px 6px;
-    background-color: #b59f87; 
-    color: #040316;
-    border: none;
-    cursor: pointer;
-	border-radius: 8px;
-	font-family: "Sour Gummy", serif;
-    font-weight: 800; 
-    font-style: normal;
-}
-
-.todo-edit input[type="text"], 
-.todo-delete input[type="text"] 
-{
-    padding: 5px;
-    border: 1px solid #ccc;
-    background-color: #cdadb1;
-    color: #040316;
-	font-family: "Fuzzy Bubbles", serif;
-    font-weight: 800;
-    font-style: normal;
-}
-
-.todo-container 
-{
-    background-color: #6a67a2;
-	border-radius: 32px;
+.input-group-text {
+    font-family: "Sour Gummy", serif;
 }

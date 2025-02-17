@@ -1,10 +1,13 @@
 const express = require("express");
 const mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 const app = express();
 
-app.use("/static", express.static("public"));
+app.use("/static",express.static("./public/"));
+app.use("/",express.static("./node_modules/bootstrap/dist/"));
 
+app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
 const uri = "mongodb+srv://USER:PASS@cluster0.aufu7kz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/test";
@@ -39,34 +42,36 @@ app.get('/', async (req, res) => {
     res.render('index', {data: data});
 });
 
-app.post('/', async (req, res) => {
-    console.log(req.body.content);
+app.post('/add', async (req, res) => {
+    let name = req.body.name;
+    if (!name) return;
 
-    let itemString = req.body.content
-
-    await item.insertOne({name: itemString});
+    await item.insertOne({name: name});
 
     res.redirect('/');
 });
 
 app.post('/update/:id', async (req, res) => {
     let id = req.params.id;
+    if (!id) return;
 
     const itemToUpdate = await item.findById(id);
+    if (!itemToUpdate) return;
 
-    itemToUpdate.name = req.body.edit;
+    let name = req.body.name;
+    if (!name) return;
 
+    itemToUpdate.name = name;
     await itemToUpdate.save();
 
     res.redirect('/');
-})
+});
 
 app.post('/delete/:id', async (req, res) => {
     let id = req.params.id;
-
     await item.findOneAndDelete({_id: id});
-
     res.redirect('/');
 })
 
-app.listen(3000, () => console.log("Server Up and running"));
+const port = 3000;
+app.listen(port, () => console.log("Server Up and running on " + port));
