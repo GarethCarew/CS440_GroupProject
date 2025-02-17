@@ -2,6 +2,9 @@
 <head><title>Todo App</title>
     <link rel="stylesheet" href="/public/stylesheets/style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Playwrite+US+Modern:wght@100..400&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -9,7 +12,7 @@
     <div class="todo">
         <form action="/" method="POST" class="todo-header">
             <input type="text" name="content">
-            <button type="submit">+<span class=""></span></button>
+            <button type="submit">Add item<span class=""></span></button>
         </form>
         <ul class="todo-list">
             <% data.forEach(function(item) { %>
@@ -17,11 +20,11 @@
                     <%= item._doc._id %>
                     <form action="/update/<%= item._doc._id %>" method="POST" class="todo-edit">
                         <input type="text" value="<%= item._doc.name %>" name="edit">
-                        <button type="submit">?<span class=""></span></button>
+                        <button type="submit">Edit<span class=""></span></button>
                     </form>
 
                     <form action="/delete/<%= item._doc._id %>" method="POST" class="todo-delete">
-                        <button type="submit">-<span class=""></span></button>
+                        <button type="submit">Delete Item<span class=""></span></button>
                     </form>
                 </li>
             <% }); %>
