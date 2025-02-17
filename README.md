@@ -8,6 +8,6 @@ These inclusions are:
 - a button for deleting pre-existing items
 
 Some information to still work on is:
-- [ ] Including a working code for the [style.css](https://github.com/GarethCarew/CS440_GroupProject/blob/main/public/stylesheets/style.css)
+- [x] Including a working code for the [style.css](https://github.com/GarethCarew/CS440_GroupProject/blob/main/public/stylesheets/style.css)
 - [ ] Commit the different UML Diagrams to the GitHub
 - [ ] Create a prototype video to include
