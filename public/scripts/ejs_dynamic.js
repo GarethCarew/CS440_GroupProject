@@ -5,7 +5,7 @@ const newItemButton = document.getElementById("new_item_button");
 
 function post(endpoint, data, itemId) {
 
-    let completeURL = "/" + endpoint;
+    let completeURL = "/" + endpoint + "/" + data.list_id;
 
     if (itemId) completeURL += "/" + itemId;
 
@@ -88,25 +88,56 @@ function cancel_edit_item(id) {
     newItemButton.disabled = false;
 }
 
-function finish_edit_item(id) {
+function finish_edit_item(id, list_id) {
     const updateEndpoint = "update"
+
+    list_id = list_id.slice(1);
+
     const editText = document.getElementById("edit_text_" + id);
+    const staticText = document.getElementById("static_text_" + id);
+    const checkbox = document.getElementById("checkbox_" + id);
+    const group = document.getElementById("group_" + id);
+
+    if(checkbox.checked)
+    {
+        group.classList.add("completed")
+    } else
+    {
+        group.classList.remove("completed");
+    }
+
     const data = {
-        name: editText.value
+        name: editText.value,
+        list_id: list_id,
+        complete: checkbox.checked,
     };
     post(updateEndpoint, data, id);
+
+    staticText.innerText = editText.value;
+
+    cancel_edit_item(id);
 }
 
-function delete_item(id) {
+function delete_item(id, list_id) {
     const deleteEndpoint = "delete"
     const data = {};
+    list_id = list_id.slice(1);
     post(deleteEndpoint, data, id);
 }
 
-function new_item(id) {
+function new_item(list_id) {
     const addEndpoint = "add"
+
+    list_id = list_id.slice(1);
+
     const data = {
-        name: newItemText.value
+        name: newItemText.value,
+        list_id: list_id,
+        complete: false,
     };
     post(addEndpoint, data);
+}
+
+function updateCheckbox(id, list_id) {
+    finish_edit_item(id, list_id);
 }

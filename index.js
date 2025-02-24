@@ -1,76 +1,113 @@
 const express = require("express");
 const mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+const dotenv = require('dotenv').config()
+const bodyParser = require('body-parser');
+
 
 const app = express();
 
-app.use("/static",express.static("./public/"));
-app.use("/",express.static("./node_modules/bootstrap/dist/"));
+app.use("/static", express.static("./public/"));
+app.use("/", express.static("./node_modules/bootstrap/dist/"));
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
-const uri = "mongodb+srv://USER:PASS@cluster0.aufu7kz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/test";
+const uri = process.env.MONGO_URI;
 
-const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+const clientOptions = {serverApi: {version: '1', strict: true, deprecationErrors: true}};
 
 async function run() {
     try {
         // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
         await mongoose.connect(uri, clientOptions);
-        await mongoose.connection.db.admin().command({ ping: 1 });
+        await mongoose.connection.db.admin().command({ping: 1});
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } catch (error) {
         // Ensures that the client will close when you finish/error
         console.log(error);
     }
 }
+
 run().catch(console.dir);
 
 const itemSchema = new mongoose.Schema({
-    name: String
+    name: String,
+    list_id: String,
+    complete: Boolean,
 });
 
-const item = mongoose.model('Task', itemSchema);
+const task = mongoose.model('Task', itemSchema);
 
 app.set("view engine", "ejs");
 
 app.get('/', async (req, res) => {
 
-    const data = await item.find({});
+    res.redirect('/tasks')
+});
 
+app.get('/:list_id', async (req, res) => {
+
+    let listID = req.params.list_id;
+
+    const data = await task.find({list_id: listID});
+
+    res.status(200);
     res.render('index', {data: data});
 });
 
-app.post('/add', async (req, res) => {
+app.post('/add/:list_id', async (req, res) => {
     let name = req.body.name;
+    let listID = req.params.list_id;
     if (!name) return;
 
-    await item.insertOne({name: name});
+    try {
+        await task.insertOne({name: name, list_id: listID, complete: false});
+    } catch (error) {
+        console.log("Insert failed: " + error);
+    }
 
-    res.redirect('/');
+    res.redirect('/' + listID);
 });
 
-app.post('/update/:id', async (req, res) => {
+app.post('/update/:list_id/:id', async (req, res) => {
     let id = req.params.id;
+    let listID = req.params.list_id;
     if (!id) return;
 
-    const itemToUpdate = await item.findById(id);
+    const itemToUpdate = await task.findById(id);
     if (!itemToUpdate) return;
 
     let name = req.body.name;
     if (!name) return;
 
-    itemToUpdate.name = name;
-    await itemToUpdate.save();
 
-    res.redirect('/');
+    itemToUpdate.name = name;
+    itemToUpdate.complete = req.body.complete;
+
+    try {
+        await itemToUpdate.save();
+    } catch (error) {
+        console.log("Update failed: " + error);
+    }
+
+    const data = await task.find({list_id: listID});
+
+    res.status(200);
+    //res.render('index', {data: data});
+    //res.redirect('/' + listID);
 });
 
-app.post('/delete/:id', async (req, res) => {
+app.post('/delete/:list_id/:id', async (req, res) => {
     let id = req.params.id;
-    await item.findOneAndDelete({_id: id});
-    res.redirect('/');
+    let listID = req.params.list_id;
+
+    try {
+        await task.findOneAndDelete({_id: id});
+    } catch (error) {
+        console.log("Delete failed: " + error);
+    }
+
+    res.redirect('/' + listID);
 })
 
 const port = 3000;

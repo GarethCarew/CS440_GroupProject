@@ -17,7 +17,7 @@ html, body {
 .new_item_header {
 
     color: #f6c492;
-    font-family: "Playwrite US Modern", serif;
+    font-family: "Playwrite US Modern", sans-serif;
     text-align: center;
 }
 
@@ -27,4 +27,8 @@ html, body {
 
 .input-group-text {
     font-family: "Sour Gummy", serif;
+}
+
+.completed .static-text {
+    text-decoration: line-through;
 }
