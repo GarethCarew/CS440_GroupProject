@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  list_service:
+    build: ./list_service
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./list_service:/app
+      - list_data:/app/data
+    networks:
+      - listnet
+
+  archive_service:
+    build: ./archive_service
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./archive_service:/app
+      - archive_data:/app/data
+    networks:
+      - listnet
+
+  api_gateway:
+    build: ./api_gateway
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./api_gateway:/app
+      - api_data:/app/data
+    networks:
+      - listnet
+    depends_on:
+      - list_service
+
+networks:
+  listnet:
+    driver: bridge
+
+volumes:
+  list_data:
+  api_data:
+  archive_data:
+

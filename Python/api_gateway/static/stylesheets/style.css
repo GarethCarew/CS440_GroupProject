@@ -1,0 +1,48 @@
+html, body {
+    background-color: #f6c492 !important;
+}
+
+.card {
+    background-color: #6a67a2 !important;
+}
+
+.h2 {
+    text-align: center;
+    color: #f6c492 !important;
+    margin-bottom: 20px;
+    font-family: "Lucida Handwriting", monospace;
+    font-size: 3em !important;
+}
+
+.new_item_header {
+
+    color: #f6c492;
+    font-family: "Playwrite US Modern", sans-serif;
+    text-align: center;
+}
+
+.btn {
+    background-color: #b59f87 !important;
+}
+
+.input-group-text {
+    font-family: "Sour Gummy", serif;
+}
+
+.completed .static-text {
+    text-decoration: line-through;
+}
+
+.archive .not_archive {
+    display: none;
+}
+
+.page_link a {
+    color: #f6c492;
+    font-family: "Playwrite US Modern", sans-serif;
+    font-size: 0.75em;
+}
+
+.page_link {
+    text-align: center;
+}
